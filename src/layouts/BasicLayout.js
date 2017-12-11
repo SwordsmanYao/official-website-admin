@@ -5,6 +5,7 @@ import { connect } from 'dva';
 
 import styles from './BasicLayout.less';
 import UserList from '../routes/User/UserList';
+import UserDetail from '../routes/User/UserDetail';
 
 const { Sider, Header, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -42,9 +43,10 @@ class BasicLayout extends React.PureComponent {
         </Sider>
         <Layout className={styles.layout}>
           <Header>header</Header>
-          <Content>
+          <Content className={styles.content}>
             <Switch>
-              <Route path="/user-list" exact component={UserList} />
+              <Route path="/user-list" key="/user-list" exact component={UserList} />
+              <Route path="/user-detail" key="/user-detail" exact component={UserDetail} />
               <Redirect exact from="/" to="/user-list" />
             </Switch>
           </Content>

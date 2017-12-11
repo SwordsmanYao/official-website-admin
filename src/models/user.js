@@ -13,7 +13,7 @@ export default {
       console.log(response);
       yield put({
         type: 'save',
-        payload: response.body,
+        payload: response.data,
       });
     },
   },
