@@ -8,14 +8,16 @@ export default {
   },
 
   effects: {
+
     *fetch(_, { call, put }) {
       console.log('in fetch');
       const response = yield call(queryUser);
       yield put({
         type: 'save',
-        payload: response.data,
+        payload: response,
       });
     },
+    // 页面的改变保存到 model 的 state 中
     *saveUser({ payload }, { put }) {
       const user = {};
       Object.keys(payload).forEach((v) => {
@@ -26,11 +28,14 @@ export default {
         payload: user,
       });
     },
-    *commitUser(_, { call, select }) {
+    // 提交新用户
+    *commitUser(_, { call, select, put }) {
       const currentUser = yield select(state => state.user.currentUser);
-      console.log('currentUser', currentUser);
       const response = yield call(addUser, currentUser);
-      console.log(response);
+      yield put({
+        type: 'saveCurrentUser',
+        payload: response,
+      });
     },
   },
 

@@ -19,9 +19,11 @@ function fetch(url, options) {
   }
 }
 
-export default function request(url, options) {
-  const response = fetch(url, options);
-  if (response.status === 200) {
-    return response.data;
-  }
+export default function request(url, options = { method: 'GET' }) {
+  return fetch(url, options)
+  .then((response) => {
+    if (response.status === 200) {
+      return response.data;
+    }
+  });
 }

@@ -34,7 +34,7 @@ class UserList extends React.PureComponent {
         <div className={styles.toolbar}>
           <Button onClick={this.gotoUserDetail}>添加</Button>
         </div>
-        <Table columns={columns} dataSource={userList} bordered scroll={{ x: 1000 }} />
+        <Table columns={columns} dataSource={userList} bordered />
       </div>
     );
   }
