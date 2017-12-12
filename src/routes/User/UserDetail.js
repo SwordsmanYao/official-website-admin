@@ -8,10 +8,13 @@ const RadioGroup = Radio.Group;
 class UserDetail extends React.PureComponent {
 
   handleSubmit = (e) => {
+    const { form, dispatch } = this.props;
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    form.validateFieldsAndScroll((err) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        dispatch({
+          type: 'user/commitUser',
+        });
       }
     });
   }
@@ -54,6 +57,7 @@ class UserDetail extends React.PureComponent {
         },
       },
     };
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem {...backFormItemLayout}>
@@ -93,8 +97,8 @@ class UserDetail extends React.PureComponent {
             }],
           })(
             <RadioGroup>
-              <Radio value="1">男</Radio>
-              <Radio value="0">女</Radio>
+              <Radio value={1}>男</Radio>
+              <Radio value={0}>女</Radio>
             </RadioGroup>,
           )}
         </FormItem>
@@ -106,4 +110,31 @@ class UserDetail extends React.PureComponent {
   }
 }
 
-export default connect()(Form.create()(UserDetail));
+export default connect(state => ({
+  currentUser: state.user.currentUser,
+}))(Form.create({
+  onFieldsChange(props, changedFields) {
+    console.log('onFieldsChange', changedFields);
+    props.dispatch({
+      type: 'user/saveUser',
+      payload: changedFields,
+    });
+  },
+  mapPropsToFields(props) {
+    console.log('mapPropsToFields', props.currentUser);
+    return {
+      LoginName: Form.createFormField({
+        value: props.currentUser.LoginName,
+      }),
+      name: Form.createFormField({
+        value: props.currentUser.name,
+      }),
+      sex: Form.createFormField({
+        value: props.currentUser.sex,
+      }),
+    };
+  },
+  onValuesChange(_, values) {
+    console.log(values);
+  },
+})(UserDetail));
