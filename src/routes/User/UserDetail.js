@@ -57,7 +57,7 @@ class UserDetail extends React.PureComponent {
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem {...backFormItemLayout}>
-          <Button onClick={handle}>返回</Button>
+          <Button>返回</Button>
         </FormItem>
         <FormItem
           {...formItemLayout}
