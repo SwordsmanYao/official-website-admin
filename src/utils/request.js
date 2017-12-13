@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 function fetch(url, options) {
   const { method, data } = options;
@@ -24,6 +25,8 @@ export default function request(url, options = { method: 'GET' }) {
   .then((response) => {
     if (response.status === 200) {
       return response.data;
+    } else if (options && options.method && options.method.toUpperCase() !== 'GET') {
+      message.error('提交错误');
     }
   });
 }

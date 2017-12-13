@@ -17,7 +17,7 @@ class UserList extends React.PureComponent {
   }
   render() {
     const columns = [
-      { title: '登录名', dataIndex: 'LoginName', key: 'LoginName' },
+      { title: '登录名', dataIndex: 'loginName', key: 'loginName' },
       { title: '姓名', dataIndex: 'name', key: 'name' },
       { title: '性别', dataIndex: 'sex', key: 'sex' },
       { title: '更新时间', dataIndex: 'updatedTime', key: 'updatedTime' },

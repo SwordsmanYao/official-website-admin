@@ -8,7 +8,6 @@ export async function queryUser() {
 }
 
 export async function addUser(params) {
-  console.log('params', params);
   return request(`${api}/user`, {
     method: 'POST',
     data: params,

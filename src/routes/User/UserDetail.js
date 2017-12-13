@@ -14,9 +14,16 @@ class UserDetail extends React.PureComponent {
       if (!err) {
         dispatch({
           type: 'user/commitUser',
+        }).then((s) => {
+          console.log('s', s);
         });
       }
     });
+  }
+
+  handleGoback = () => {
+    const { history } = this.props;
+    history.goBack();
   }
 
   render() {
@@ -61,13 +68,13 @@ class UserDetail extends React.PureComponent {
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem {...backFormItemLayout}>
-          <Button>返回</Button>
+          <Button onClick={this.handleGoback}>返回</Button>
         </FormItem>
         <FormItem
           {...formItemLayout}
           label="登录名"
         >
-          {getFieldDecorator('LoginName', {
+          {getFieldDecorator('loginName', {
             rules: [{
               required: true, message: '请输入登录名',
             }],
@@ -123,8 +130,8 @@ export default connect(state => ({
   mapPropsToFields(props) {
     console.log('mapPropsToFields', props.currentUser);
     return {
-      LoginName: Form.createFormField({
-        value: props.currentUser.LoginName,
+      loginName: Form.createFormField({
+        value: props.currentUser.loginName,
       }),
       name: Form.createFormField({
         value: props.currentUser.name,
